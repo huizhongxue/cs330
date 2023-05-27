@@ -63,10 +63,16 @@ Parameters
 array: array to be sorted
 does not return anything but sorts the given array
 """
-def sort(array):
-    #Hint: you can implement the insertion sort from hw0
-    #Hint: test your sorting function before calling it from the homework function
 
+def sort(array):
+    for i in range(1, len(array), 1):
+        key = array[i]
+        j = i-1
+        while j >= 0 and array[j] < key:
+            temp = array[j]
+            array[j] = array[j+1]
+            array[j+1] = temp
+            j = j-1
 
 """
 =========================================================================================
@@ -89,8 +95,10 @@ def count_students_already_in_place(m, grades):
     #the function .copy() performs a deep copy of the array
     grades_before_sorting = grades.copy()
     counter = 0
-    """
-        Insert your code here. You are also free to edit the above two lines,
-        but you must keep the function signature as is.
-    """
+    sort(grades)
+    print(grades_before_sorting)
+    print(grades)
+    for i in range(0, len(grades), 1):
+        if grades[i] == grades_before_sorting[i]:
+            counter = counter + 1
     return counter
