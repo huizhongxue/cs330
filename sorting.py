@@ -28,4 +28,15 @@ def insertionSort(a):
 
 print(insertionSort(a))
 
+import math
+
+b = [3]
+temp = math.sin(3)
+
+for i in range(1, 10000, 1):
+    if math.sin(i) < temp:
+        b.append(i)
+        temp = math.sin(i)
+
+print("The index of the decreasing subsequence is:", b)
 
