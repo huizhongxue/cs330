@@ -40,3 +40,14 @@ for i in range(1, 10000, 1):
 
 print("The index of the decreasing subsequence is:", b)
 
+c = [2]
+
+for i in range(1, 100, 1):
+    c.append(2+1/c[-1])
+
+print(c)
+
+d = []
+for i in range(0, 99, 1):
+    d.append(c[i+1]-c[i])
+print(d)
