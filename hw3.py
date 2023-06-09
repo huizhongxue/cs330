@@ -104,3 +104,23 @@ def compute_shortest_distances_with_dijkstra(adj_list, start):
     """
 
     return distances
+
+def UpdateGraphAndDegrees(adjacency_list):
+    indegree = []
+    removed = []
+
+    for i in range(0, len(adjacency_list), 1):
+        indegree.append(len(adjacency_list[i]))
+        if len(adjacency_list[i]) == 0: 
+            removed.append(i)
+    
+    for edge_list in adjacency_list:
+        if len(edge_list) == 0:
+            adjacency_list.remove(edge_list)
+        else: 
+            for node in edge_list:
+                if node in removed:
+                    edge_list.remove(node)
+
+    return indegree
+    return adjacency_list
