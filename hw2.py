@@ -54,9 +54,27 @@ a car. If it is impossible to manufacture it, return -1.
 def find_hours_needed(task_dependencies_list):
     N = len(task_dependencies_list)
     hours_needed = 0
-    """
-        Insert your code here
-    """
+    visited = []
+    current = []
+
+    if N == 0: return 0
+    for i in range(0, N, 1):
+        if not task_dependencies_list[i]: 
+            current.append(i)
+            visited.append(i)
+    if not visited: return -1
+    hours_needed = hours_needed + 1
+
+    while current:
+        current = []
+        for i in range(0, N, 1):
+            if i not in visited: 
+                if task_dependencies_list[i].issubset(visited):
+                    current.append(i)
+        if current: 
+            hours_needed = hours_needed + 1
+            visited.extend(current)
+
     return hours_needed
 
 
