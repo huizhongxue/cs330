@@ -80,6 +80,33 @@ def compute_arrival_time(walk_time_to_station, adj_list):
     arrival_time_at_comedycenter_str = ... #string in format HH:MM
     is_late = ... #boolean variable
     """
+    if walk_time_to_station > 30:
+        if time_to_comedy_center < 10: 
+            minute = 50 + time_to_comedy_center
+            arrival_time_at_comedycenter_str = '17:' + str(minute)
+            is_late = False
+        elif time_to_comedy_center == 10:
+            arrival_time_at_comedycenter_str = '18:00'
+            is_late = False
+        else:
+            hour = 18 + (time_to_comedy_center - 10) // 60
+            minute = (time_to_comedy_center - 10) % 60
+            arrival_time_at_comedycenter_str = str(hour) + ':' + str(minute)
+            is_late = True
+    else:
+        if time_to_comedy_center < 30: 
+            minute = 30 + time_to_comedy_center
+            arrival_time_at_comedycenter_str = '17:' + str(minute)
+            is_late = False
+        elif time_to_comedy_center == 30: 
+            arrival_time_at_comedycenter_str = '18:00'
+            is_late = False
+        else:
+            hour = 18 + (time_to_comedy_center - 30) // 60
+            minute = (time_to_comedy_center - 30) % 60
+            arrival_time_at_comedycenter_str = str(hour) + ':' + str(minute)
+            is_late = True
+    
     return (arrival_time_at_comedycenter_str, is_late)
 
 
@@ -104,23 +131,3 @@ def compute_shortest_distances_with_dijkstra(adj_list, start):
     """
 
     return distances
-
-def UpdateGraphAndDegrees(adjacency_list):
-    indegree = []
-    removed = []
-
-    for i in range(0, len(adjacency_list), 1):
-        indegree.append(len(adjacency_list[i]))
-        if len(adjacency_list[i]) == 0: 
-            removed.append(i)
-    
-    for edge_list in adjacency_list:
-        if len(edge_list) == 0:
-            adjacency_list.remove(edge_list)
-        else: 
-            for node in edge_list:
-                if node in removed:
-                    edge_list.remove(node)
-
-    return indegree
-    return adjacency_list
