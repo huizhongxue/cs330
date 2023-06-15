@@ -47,7 +47,8 @@ for i in range(1, 100, 1):
 
 print(c)
 
-d = []
+d = [1]
 for i in range(0, 99, 1):
-    d.append(c[i+1]-c[i])
+    d.append(1/(1+d[-1]))
 print(d)
+
