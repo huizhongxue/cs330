@@ -91,7 +91,7 @@ def compute_arrival_time(walk_time_to_station, adj_list):
         else:
             hour = 18 + (time_to_comedy_center - 10) // 60
             minute = (time_to_comedy_center - 10) % 60
-            arrival_time_at_comedycenter_str = str(hour) + ':' + str(minute)
+            arrival_time_at_comedycenter_str = str(hour) + ':' + "{0:0=2d}".format(minute)
             is_late = True
     else:
         if time_to_comedy_center < 30: 
@@ -104,7 +104,7 @@ def compute_arrival_time(walk_time_to_station, adj_list):
         else:
             hour = 18 + (time_to_comedy_center - 30) // 60
             minute = (time_to_comedy_center - 30) % 60
-            arrival_time_at_comedycenter_str = str(hour) + ':' + str(minute)
+            arrival_time_at_comedycenter_str = str(hour) + ':' + "{0:0=2d}".format(minute)
             is_late = True
     
     return (arrival_time_at_comedycenter_str, is_late)
@@ -119,15 +119,45 @@ start: starting vertex
 Returns:
 table of the shortest paths of all nodes in the graph
 """
+
+walk_time_to_station = 35
+stations = {
+'cds': {'harvard': 5, 'comedycenter': 25},
+'harvard': {'airport': 5},
+'airport': {'comedycenter': 5},
+'comedycenter': {}
+}
+
+walk_time_to_station2 = 15
+stations2 = {
+'cds': {'harvard': 10, 'comedycenter': 30},
+'harvard': {'airport': 15},
+'airport': {'comedycenter': 10},
+'comedycenter': {}
+}
+
 def compute_shortest_distances_with_dijkstra(adj_list, start):
     num_vertices = len(adj_list)
     #assign infinity distance to all vertices
     distances = {vertex: sys.maxsize for vertex in adj_list}
     #except for start vertex, assign 0 to it
     distances[start] = 0
+    explored = [start]
+    current = [start]
 
-    """
-    Your code here....
-    """
-
+    while current:
+        node = current.pop(0)
+        if node not in explored:
+            explored.append(node)
+        for next in adj_list[node]:
+            current.append(next)
+            if distances[node] + adj_list[node][next] < distances[next]:
+                distances[next] = distances[node] + adj_list[node][next]
+    
     return distances
+
+print(compute_arrival_time(walk_time_to_station, stations))
+print(compute_shortest_distances_with_dijkstra(stations, 'cds'))
+
+print(compute_arrival_time(walk_time_to_station2, stations2))
+print(compute_shortest_distances_with_dijkstra(stations2, 'cds'))
