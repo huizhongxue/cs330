@@ -64,7 +64,25 @@ Returns:
 s: maximum joke energy
 """
 def max_energy(points, energy, k, n):
-    """
-        Your code here......
-    """
-    #return .....
+
+    if n == 1: return energy[0]
+    max = [0] * (n-1)
+    max.append(energy[n-1])
+
+    for i in range(n-2, -1, -1):
+        j = i + 1
+        while j < n and points[j] - points[i] < k:
+            j = j + 1
+        if j >= n: 
+            if points[n-1] - points[i] < k:
+                if energy[i] > max[i+1]:
+                    max[i] = energy[i]
+                else:
+                    max[i] = max[i+1]
+        else:
+            if max[i+1] > energy[i] + max[j]:
+                max[i] = max[i+1]
+            else:
+                max[i] =  energy[i] + max[j]
+
+    return max[0]
